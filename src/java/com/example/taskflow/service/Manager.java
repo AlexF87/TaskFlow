@@ -67,4 +67,59 @@ public class Manager {
     public void removeTask(int id){
         tasks.remove(id);
     }
+
+    //Epic
+    //Получение всех эпиков
+    public List<Epic> getAllEpics() {
+        List<Epic> epicList = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Epic epic) {
+                epicList.add(epic);
+            }
+        }
+        return epicList;
+    }
+
+    //Удаление всех эпиков
+    public void removeEpic(){
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Epic) {
+                tasks.remove(i);
+            }
+        }
+    }
+
+    //Получение эпика по id
+    public Epic getEpic(int id){
+        return (Epic)tasks.getOrDefault(id, null);
+    }
+
+    //Создание эпика
+    public Epic createEpic(Epic epic){
+        epic.setId(++id);
+        tasks.put(epic.getId(), epic);
+        return epic;
+    }
+
+    //Обновление эпика
+    public Epic updateEpic(Epic newEpic){
+        Epic epic = (Epic)tasks.get(newEpic.getId());
+        epic.setDescription(newEpic.getDescription());
+        epic.setSubTasks(newEpic.getSubTasks());
+        epic.setName(newEpic.getName());
+        epic.setStatus(newEpic.getStatus());
+        return epic;
+    }
+
+    //Удаление по id
+    public void removeEpic(int id){
+        tasks.remove(id);
+    }
+
+    //Получение списка подзадач определенного эпика
+    public List<SubTask> getListSubTasksOfEpic(int id){
+        Epic epic = (Epic)tasks.get(id);
+        return epic.getSubTasks();
+    }
+
 }
