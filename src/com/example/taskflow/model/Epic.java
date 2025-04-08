@@ -1,4 +1,4 @@
-package java.com.example.taskflow.model;
+package com.example.taskflow.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,7 @@ public class Epic extends Task{
     public String toString() {
         return "Epic{" +
                 "id=" + this.getId() + '\'' +
+                "status" + this.getStatus() +'\'' +
                 ", name='" + this.getName() + '\'' +
                 ", description='" + this.getDescription() + '\'' +
                 "subTasks=" + subTasks +

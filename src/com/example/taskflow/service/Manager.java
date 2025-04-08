@@ -1,12 +1,10 @@
-package java.com.example.taskflow.service;
+package com.example.taskflow.service;
 
-import java.com.example.taskflow.model.Epic;
-import java.com.example.taskflow.model.SubTask;
-import java.com.example.taskflow.model.Task;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.example.taskflow.model.Epic;
+import com.example.taskflow.model.SubTask;
+import com.example.taskflow.model.Task;
+import com.example.taskflow.model.TaskStatus;
+import java.util.*;
 
 public class Manager {
     //Хранилище задач
@@ -122,4 +120,94 @@ public class Manager {
         return epic.getSubTasks();
     }
 
+    //SubTask
+    //Получение списка всех SubTask
+    public List<SubTask> getAllSubTasks() {
+        List<SubTask> subTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof SubTask subTask) {
+                subTasks.add(subTask);
+            }
+        }
+        return subTasks;
+    }
+
+    //Удаление всех SubTask
+    public void removeAllSubTasks(){
+        Set<Integer> epicsId = new HashSet<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof SubTask subTask) {
+                epicsId.add(subTask.getIdEpic());
+                tasks.remove(i);
+            }
+        }
+        for (Integer i : epicsId){
+            changeStatusForEpic((Epic)tasks.get(i));
+        }
+    }
+
+    //Получение по id SubTask
+    public SubTask getSubTask(int id){
+        return (SubTask)tasks.getOrDefault(id, null);
+    }
+
+    //Создание SubTask
+    public SubTask createSubTask(SubTask subTask){
+        subTask.setId(++id);
+        tasks.put(subTask.getId(), subTask);
+        Epic epic = (Epic)tasks.get(subTask.getIdEpic());
+        epic.getSubTasks().add(subTask);
+        changeStatusForEpic((Epic)tasks.get(subTask.getIdEpic()));
+        return subTask;
+    }
+
+    //Обновление SubTask
+    public SubTask updateSubTask(SubTask newSubTask){
+        SubTask subTask = (SubTask)tasks.get(newSubTask.getId());
+        subTask.setDescription(newSubTask.getDescription());
+        subTask.setIdEpic(newSubTask.getIdEpic());
+        subTask.setName(newSubTask.getName());
+        subTask.setStatus(newSubTask.getStatus());
+        changeStatusForEpic((Epic)tasks.get(subTask.getIdEpic()));
+        return subTask;
+    }
+
+    //Удаление по идентификатору SubTask
+    public void removeSubTask(int id){
+        SubTask subTask = (SubTask)tasks.get(id);
+        int epicId = subTask.getIdEpic();
+        tasks.remove(id);
+        changeStatusForEpic((Epic)tasks.get(epicId));
+    }
+
+    //Изменение статуса для эпика
+    public void changeStatusForEpic(Epic epic) {
+        List<SubTask> subTasks = epic.getSubTasks();
+
+        //NEW
+        if (epic.getSubTasks().isEmpty()) {
+            epic.setStatus(TaskStatus.NEW);
+            return;
+        }
+
+        boolean statusNew = subTasks.stream()
+                .allMatch(subTask -> subTask.getStatus() == TaskStatus.NEW);
+        if (statusNew) {
+            epic.setStatus(TaskStatus.NEW);
+            return;
+        }
+
+        //DONE
+        boolean statusDone = subTasks.stream()
+                .allMatch(subtask -> subtask.getStatus() == TaskStatus.DONE);
+        if (statusDone) {
+            epic.setStatus(TaskStatus.DONE);
+            return;
+        }
+
+        //IN_PROGRESS
+        epic.setStatus(TaskStatus.IN_PROGRESS);
+    }
 }

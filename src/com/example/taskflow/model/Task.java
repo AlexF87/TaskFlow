@@ -1,4 +1,4 @@
-package java.com.example.taskflow.model;
+package com.example.taskflow.model;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package java.com.example.taskflow.model;
+package com.example.taskflow.model;
 
 import java.util.Objects;
 
@@ -35,6 +35,7 @@ public class SubTask extends Task{
     public String toString() {
         return "SubTask{" +
                 "id=" + this.getId() + '\'' +
+                "status" + this.getStatus() +'\'' +
                 ", name='" + this.getName() + '\'' +
                 ", description='" + this.getDescription() + '\'' +
                 "idEpic=" + idEpic +
