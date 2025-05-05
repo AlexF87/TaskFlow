@@ -3,6 +3,7 @@ package com.example.taskflow;
 import com.example.taskflow.model.Epic;
 import com.example.taskflow.model.SubTask;
 import com.example.taskflow.model.TaskStatus;
+import com.example.taskflow.service.InMemoryTaskManager;
 import com.example.taskflow.service.Manager;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class Main {
         SubTask subTask2 = new SubTask(0, "AA2","AAAfor epic 1", TaskStatus.NEW, 1);
         SubTask subTask3 = new SubTask(0, "BBB","AAAfor epic 2", TaskStatus.NEW, 2);
 
-        Manager manager = new Manager();
+        Manager manager = new InMemoryTaskManager();
         manager.createEpic(epic1);
         manager.createEpic(epic2);
         manager.createSubTask(subTask1);
