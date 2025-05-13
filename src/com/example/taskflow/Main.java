@@ -2,7 +2,10 @@ package com.example.taskflow;
 
 import com.example.taskflow.model.Epic;
 import com.example.taskflow.model.SubTask;
+import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
+import com.example.taskflow.service.HistoryManager;
+import com.example.taskflow.service.InMemoryHistoryManager;
 import com.example.taskflow.service.InMemoryTaskManager;
 import com.example.taskflow.service.Manager;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class Main {
         SubTask subTask3 = new SubTask(0, "BBB","AAAfor epic 2", TaskStatus.NEW, 2);
 
         Manager manager = new InMemoryTaskManager();
+        HistoryManager<Task> hmanager = new InMemoryHistoryManager<>();
         manager.createEpic(epic1);
         manager.createEpic(epic2);
         manager.createSubTask(subTask1);
@@ -31,11 +35,20 @@ public class Main {
         subTask1.setStatus(TaskStatus.DONE);
         manager.updateSubTask(subTask1);
         System.out.println(manager.getAllEpics());
+        manager.getTask(0);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(1);
+        manager.getEpic(2);
+        manager.getSubTask(3);
 
-        manager.removeEpic(1);
-        manager.removeSubTask(5);
-
-        System.out.println(manager.getAllEpics());
-        System.out.println(manager.getAllSubTasks());
+        System.out.println(Managers.getDefaultHistory().getHistory());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.taskflow.service;
 
+import com.example.taskflow.Managers;
 import com.example.taskflow.model.Epic;
 import com.example.taskflow.model.SubTask;
 import com.example.taskflow.model.Task;
@@ -14,7 +15,7 @@ public class InMemoryTaskManager implements Manager{
     //Id для всех задач
     private static int id = 0;
 
-    HistoryManager<Task> historyManager = new InMemoryHistoryManager<>();
+    public HistoryManager<Task> historyManager = Managers.getDefaultHistory();
 
     //Task методы
     //Получение всех задач
