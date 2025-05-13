@@ -13,6 +13,9 @@ public class InMemoryTaskManager implements Manager{
 
     //Id для всех задач
     private static int id = 0;
+
+    HistoryManager<Task> historyManager = new InMemoryHistoryManager<>();
+
     //Task методы
     //Получение всех задач
     public List<Task> getTaskAll(){
@@ -43,7 +46,9 @@ public class InMemoryTaskManager implements Manager{
 
     //Получение по идентификатору задачи
     public Task getTask(int id){
-        return tasks.getOrDefault(id, null);
+        Task task = tasks.getOrDefault(id, null);
+        historyManager.add(task);
+        return task;
     }
 
     //Создание задачи
@@ -90,7 +95,9 @@ public class InMemoryTaskManager implements Manager{
 
     //Получение эпика по id
     public Epic getEpic(int id){
-        return (Epic)tasks.getOrDefault(id, null);
+        Epic epic = (Epic)tasks.getOrDefault(id, null);
+        historyManager.add(epic);
+        return epic;
     }
 
     //Создание эпика
@@ -151,7 +158,9 @@ public class InMemoryTaskManager implements Manager{
 
     //Получение по id SubTask
     public SubTask getSubTask(int id){
-        return (SubTask)tasks.getOrDefault(id, null);
+        SubTask subTask = (SubTask)tasks.getOrDefault(id, null);
+        historyManager.add(subTask);
+        return subTask;
     }
 
     //Создание SubTask
