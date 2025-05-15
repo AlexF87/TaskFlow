@@ -19,9 +19,11 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
             return;
         }
         if(history.size() == MAX_SIZE){
+
             for (int i = 0; i < MAX_SIZE - 1; i++) {
                 history.set(0, history.get(i + 1));
             }
+            history.remove(history.get(9));
         }
         history.add(task);
     }
