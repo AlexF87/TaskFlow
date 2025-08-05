@@ -8,6 +8,8 @@ import java.util.List;
 public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>{
     private final static int MAX_SIZE = 10;
     private final List<T> history = new ArrayList<>();
+    Node<T> head;
+    Node<T> tail;
     @Override
     public List<T> getHistory() {
         return history;
@@ -30,6 +32,20 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
 
     @Override
     public void remove(int id) {
+
+    }
+
+    //добавляет задачу в конец списка
+    private void linkLast(Node<T> taskNode) {
+       if(head == null) {
+           head = taskNode;
+           tail = taskNode;
+       } else{
+           var oldTail = tail;
+           tail = taskNode;
+           taskNode.prev = oldTail;
+           oldTail.next = taskNode;
+       }
 
     }
 }
