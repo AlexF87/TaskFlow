@@ -9,6 +9,7 @@ import com.example.taskflow.service.InMemoryHistoryManager;
 import com.example.taskflow.service.InMemoryTaskManager;
 import com.example.taskflow.service.Manager;
 import java.util.ArrayList;
+import java.util.Collections;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -16,7 +17,6 @@ public class Main {
     public static void main(String[] args) {
         Epic epic1 = new Epic(0,"first", "first des", TaskStatus.NEW,new ArrayList<>());
         Epic epic2 = new Epic(0,"second", "second des", TaskStatus.NEW,new ArrayList<>());
-
         SubTask subTask1 = new SubTask(0, "AAAA","AAAfor epic 1", TaskStatus.NEW, 1);
         SubTask subTask2 = new SubTask(0, "AA2","AAAfor epic 1", TaskStatus.NEW, 1);
         SubTask subTask3 = new SubTask(0, "BBB","AAAfor epic 2", TaskStatus.NEW, 2);
