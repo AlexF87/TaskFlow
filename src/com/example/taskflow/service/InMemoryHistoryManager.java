@@ -35,7 +35,7 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
 
     }
 
-    //добавляет задачу в конец списка
+    //Добавляет задачу в конец списка CustomLinkedList
     private void linkLast(Node<T> taskNode) {
        if(head == null) {
            head = taskNode;
@@ -47,5 +47,20 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
            oldTail.next = taskNode;
        }
 
+    }
+
+    //Собирает все задачи из CustomLinkedList в обычный ArrayList
+    private List<T> getTasks() {
+        if(head == null) {
+            return new ArrayList<>();
+        } else {
+            List<T> allHistory = new ArrayList<>();
+            Node<T> current = head;
+            while(current != null){
+                allHistory.add(current.data);
+                current = current.next;
+            }
+            return allHistory;
+        }
     }
 }
