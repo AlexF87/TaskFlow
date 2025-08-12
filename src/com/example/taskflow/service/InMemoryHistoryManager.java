@@ -63,4 +63,34 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
             return allHistory;
         }
     }
+
+    // принимает объект Node (узел связного списка) и вырезает его.
+    private void removeNode(Node<T> node) {
+        if(node == null) {
+            return;
+        }
+        //Удаление в начале
+        if(head == node) {
+            head = node.next;
+            head.prev = null;
+            node.next = null;
+        }
+        //Удаление в конце
+        if(tail == node) {
+            tail = node.prev;
+            tail.next = null;
+            node.prev = null;
+        } else {
+            //Удаление в середине
+            var prev = node.prev;
+            var next = node.next;
+
+            prev.next = next;
+            next.prev = prev;
+            node.next = null;
+            node.prev = null;
+        }
+
+
+    }
 }
