@@ -3,16 +3,19 @@ package com.example.taskflow.service;
 import com.example.taskflow.model.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>{
     private final static int MAX_SIZE = 10;
     private final List<T> history = new ArrayList<>();
+    private final Map<Integer, Node> nodeMap = new HashMap<>();
     Node<T> head;
     Node<T> tail;
     @Override
     public List<T> getHistory() {
-        return history;
+        return getTasks();
     }
 
     @Override
