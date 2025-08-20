@@ -23,14 +23,22 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
         if(task == null){
             return;
         }
-        if(history.size() == MAX_SIZE){
+        var historyList = getHistory();
+        Node<T> newNode = new Node(task,null, null);
 
-            for (int i = 0; i < MAX_SIZE - 1; i++) {
-                history.set(0, history.get(i + 1));
-            }
-            history.remove(history.get(9));
+        if(historyList.size() == MAX_SIZE) {
+            removeNode(nodeMap.get(historyList.get(0)));
+            nodeMap.remove(historyList.get(0));
+            nodeMap.put(task.getId(), newNode);
+            linkLast(newNode);
+        } else if (nodeMap.containsKey(task.getId())) {
+            removeNode(nodeMap.get(task.getId()));
+            linkLast(nodeMap.get(task.getId()));
+        } else {
+            nodeMap.put(task.getId(), newNode);
+            linkLast(newNode);
         }
-        history.add(task);
+
     }
 
     @Override
