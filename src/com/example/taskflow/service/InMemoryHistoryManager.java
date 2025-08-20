@@ -43,7 +43,7 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
 
     @Override
     public void remove(int id) {
-
+        removeNode(nodeMap.remove(id));
     }
 
     //Добавляет задачу в конец списка CustomLinkedList
