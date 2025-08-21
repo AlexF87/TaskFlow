@@ -21,8 +21,8 @@ public class Main {
         SubTask subTask2 = new SubTask(0, "AA2","AAAfor epic 1", TaskStatus.NEW, 1);
         SubTask subTask3 = new SubTask(0, "BBB","AAAfor epic 2", TaskStatus.NEW, 2);
 
-        Manager manager = new InMemoryTaskManager();
-        HistoryManager<Task> hmanager = new InMemoryHistoryManager<>();
+        Manager manager = Managers.getDefault();
+
         manager.createEpic(epic1);
         manager.createEpic(epic2);
         manager.createSubTask(subTask1);
@@ -49,6 +49,7 @@ public class Main {
         manager.getEpic(2);
         manager.getSubTask(3);
 
-        System.out.println(Managers.getDefaultHistory().getHistory());
+        InMemoryTaskManager manager1 = (InMemoryTaskManager) manager;
+        System.out.println(manager1.historyManager.getHistory());
     }
 }

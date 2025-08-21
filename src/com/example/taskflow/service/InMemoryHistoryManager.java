@@ -82,9 +82,15 @@ public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T>
         }
         //Удаление в начале
         if(head == node) {
-            head = node.next;
+            if(node.next != null) {
+                head = node.next;
+            } else {
+                head = null;
+                return;
+            }
             head.prev = null;
             node.next = null;
+            return;
         }
         //Удаление в конце
         if(tail == node) {
